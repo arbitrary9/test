@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "CommonJS",
+    "lib": ["ES2021"],
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@steps/*": ["tests/step-definitions/*"],
+      "@config/*": ["config/*"]
+    }
+  },
+  "include": [
+    "tests/**/*.ts",
+    "config/**/*.ts",
+    "features/**/*.feature"
+  ],
+  "exclude": ["dist", "node_modules"]
+}
