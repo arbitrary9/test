@@ -5,6 +5,7 @@ dotenv.config(); // Load .env into process.env
 
 const EnvSchema = z.object({
     TAG: z.string().optional(),
+    WEB_SITE_URL: z.string().default("https://www.google.com"),
     ENV: z.enum(["local", "ci", "docker"]).default("local"),
     DEBUG: z
         .string()

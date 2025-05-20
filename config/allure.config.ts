@@ -3,9 +3,9 @@ import * as os from "node:os";
 import * as process from "node:process";
 
 export default {
-    format: ["allure-cucumberjs/reporter:allure-results/allure.ndjson"],
+    format: ["allure-cucumberjs/reporter:./out/ignoreme.txt"],
     formatOptions: {
-        resultsDir: "allure-results",
+        resultsDir: "./out/allure-results",
         labels: [
             {
                 pattern: [/@epic:(.*)/],
@@ -28,7 +28,7 @@ export default {
             },
             jira: {
                 pattern: [/@jira:(.*)/],
-                urlTemplate: (v: any) => `https://jira.example.com/browse/${v}`,
+                urlTemplate: (v: any) => `https://wiswm.atlassian.net/browse/${v}`,
             },
         },
         categories: [

@@ -5,12 +5,12 @@ import * as path from "node:path";
 const isCompiled = __dirname.includes("dist");
 
 const requirePaths = isCompiled
-    ? [path.resolve("dist/tests/step-definitions/**/*.js")]
-    : [path.resolve("tests/step-definitions/**/*.ts")];
+    ? [path.resolve("dist/tests/step-definitions/**/*.js"), path.resolve("dist/tests/support/**/*.js")]
+    : [path.resolve("tests/step-definitions/**/*.ts"), path.resolve("tests/support/**/*.ts")];
 
 module.exports = {
     default: {
-        require: requirePaths,
+        require: [...requirePaths],
         format: ["progress-bar", allureConfig.format[0]],
         paths: ["features/**/*.feature"],
         tags: env.TAG || "", // pass via ENV
