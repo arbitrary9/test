@@ -51,14 +51,14 @@ export class Tag {
    * @param config The tag configuration
    */
   public static initialize(config: ITagConfiguration): void {
-    this.configuration = config;
+    Tag.configuration = config;
   }
 
   /**
    * Get the current tag configuration
    */
   public static getConfiguration(): ITagConfiguration {
-    return this.configuration;
+    return Tag.configuration;
   }
 
   /**
@@ -105,11 +105,11 @@ export class Tag {
    * @returns Label object if found, undefined otherwise
    */
   public static matchLabel(tag: string): Label | undefined {
-    if (!this.configuration) {
+    if (!Tag.configuration) {
       throw new Error('Tag configuration not initialized');
     }
 
-    for (const label of this.configuration.labels) {
+    for (const label of Tag.configuration.labels) {
       for (const pattern of label.pattern) {
         try {
           const match = tag.match(pattern);
@@ -117,7 +117,7 @@ export class Tag {
           if (match && match.length > 1) {
             return {
               name: label.name,
-              value: String(this.processTagValue(match[1]))
+              value: String(Tag.processTagValue(match[1]))
             };
           }
         } catch (error) {
@@ -135,11 +135,11 @@ export class Tag {
    * @returns Link object if found, undefined otherwise
    */
   public static matchLink(tag: string): Link | undefined {
-    if (!this.configuration) {
+    if (!Tag.configuration) {
       throw new Error('Tag configuration not initialized');
     }
 
-    for (const [type, link] of Object.entries(this.configuration.links)) {
+    for (const [type, link] of Object.entries(Tag.configuration.links)) {
       for (const pattern of link.pattern) {
         try {
           const match = tag.match(pattern);
@@ -149,7 +149,7 @@ export class Tag {
             let url: string;
             
             if (typeof link.urlTemplate === 'function') {
-              url = link.urlTemplate(this.processTagValue(value));
+              url = link.urlTemplate(Tag.processTagValue(value));
             } else {
               url = link.urlTemplate.replace('%s', encodeURIComponent(value));
             }
@@ -195,14 +195,14 @@ export class Tag {
       // Try to extract value from @tag:value format
       const valueTagMatch = /^@(\w+):(.+)$/.exec(tag);
       if (valueTagMatch) {
-        value = this.processTagValue(valueTagMatch[2]);
+        value = Tag.processTagValue(valueTagMatch[2]);
       }
     }
     
     const result = {
       original: tag,
-      label: this.matchLabel(tag),
-      link: this.matchLink(tag),
+      label: Tag.matchLabel(tag),
+      link: Tag.matchLink(tag),
       value
     };
     
