@@ -1,5 +1,4 @@
 import * as path from "node:path";
-import "@config/init";
 import { env } from "@config/env"
 
 const isDist = process.env.NODE_ENV === 'production';

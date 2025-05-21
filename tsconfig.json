@@ -4,6 +4,7 @@
     "module": "commonjs",
     "lib": ["ES2021", "DOM"],
     "strict": true,
+    "useDefineForClassFields": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,

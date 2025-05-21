@@ -13,8 +13,8 @@ export type TestRailEnv = z.infer<typeof TestRailSchema>;
 
 export const CucumberSchema = z.object({
     TAGS: z.string().optional()
-        .describe(`Comma-separated list of supported tags: ${TagValidator.getSupportedTags().join(', ')}`)
-        .transform((val) => TagValidator.process(val))
+        // .describe(`Comma-separated list of supported tags: ${TagValidator.getSupportedTags().join(', ')}`)
+        // .transform((val) => TagValidator.process(val))
 });
 export type CucumberEnv = z.infer<typeof CucumberSchema>;
 

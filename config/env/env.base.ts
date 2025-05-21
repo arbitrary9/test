@@ -18,10 +18,6 @@ export function loadEnvConfig<T extends z.ZodTypeAny>(schema: T, options?: {
         process.exit(1);
     }
 
-    if(!required) {
-        return {} as z.infer<T>;
-    }
-
     const parsed = schema.safeParse(process.env);
 
     if (!parsed.success) {
