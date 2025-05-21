@@ -40,7 +40,7 @@ export class TagValidator {
    * Returns the list of all supported tags
    */
   public static getSupportedTags(): string[] {
-    return Object.keys(this.SUPPORTED_TAGS);
+    return Object.keys(TagValidator.SUPPORTED_TAGS);
   }
 
   /**
@@ -48,12 +48,12 @@ export class TagValidator {
    */
   public static getTagDescription(tag: string): string | undefined {
     // Direct match first
-    if (this.SUPPORTED_TAGS[tag]) {
-      return this.SUPPORTED_TAGS[tag];
+    if (TagValidator.SUPPORTED_TAGS[tag]) {
+      return TagValidator.SUPPORTED_TAGS[tag];
     }
     
     // Pattern match next
-    for (const [pattern, description] of Object.entries(this.SUPPORTED_TAGS)) {
+    for (const [pattern, description] of Object.entries(TagValidator.SUPPORTED_TAGS)) {
       if (pattern.includes('(.*)')) {
         try {
           const regex = new RegExp(`^${pattern.replace(/\(\.\*\)/g, '.*')}$`);
@@ -83,7 +83,7 @@ export class TagValidator {
       }
 
       // Check if the tag matches any of our supported patterns
-      const isSupported = Object.keys(this.SUPPORTED_TAGS).some(pattern => {
+      const isSupported = Object.keys(TagValidator.SUPPORTED_TAGS).some(pattern => {
         try {
           // Convert glob pattern to regex
           const regexPattern = new RegExp(`^${pattern.replace(/\(\.\*\)/g, '.*')}$`);
@@ -113,7 +113,7 @@ export class TagValidator {
     if (!tagsString) return [];
     
     const tags = tagsString.split(',').map(tag => tag.trim());
-    return this.validateTags(tags);
+    return TagValidator.validateTags(tags);
   }
 
   /**
@@ -128,8 +128,8 @@ export class TagValidator {
    * Process a tags string and return a Cucumber-formatted string
    */
   public static process(tagsString: string | undefined): string {
-    const validTags = this.parseTagsString(tagsString);
-    return this.formatForCucumber(validTags);
+    const validTags = TagValidator.parseTagsString(tagsString);
+    return TagValidator.formatForCucumber(validTags);
   }
   
   /**
