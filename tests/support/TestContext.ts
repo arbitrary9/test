@@ -5,6 +5,6 @@ import {env} from "@config/env";
 export class TestContext extends World<ITestContextParameters> {
     constructor(options: IWorldOptions<ITestContextParameters>) {
         super(options);
-        options.parameters.webSiteUrl = env.WEB_SITE_URL;
+        options.parameters.webSiteUrl = env.ENVIRONMENT.WEB_SITE_URL;
     }
 }

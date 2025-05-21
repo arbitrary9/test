@@ -1,36 +1,15 @@
 import { Status } from "allure-js-commons";
 import * as os from "node:os";
 import * as process from "node:process";
+import { tagConfig } from "./env/config.tags";
+import "./init";
 
 export default {
     format: ["allure-cucumberjs/reporter:./out/ignoreme.txt"],
     formatOptions: {
         resultsDir: "./out/allure-results",
-        labels: [
-            {
-                pattern: [/@epic:(.*)/],
-                name: "epic",
-            },
-            {
-                pattern: [/@severity:(.*)/],
-                name: "severity",
-            },
-        ],
-        links: {
-            issue: {
-                pattern: [/@issue:(.*)/],
-                urlTemplate: "https://issues.example.com/%s",
-                nameTemplate: "ISSUE %s",
-            },
-            tms: {
-                pattern: [/@tms:(.*)/],
-                urlTemplate: "https://tms.example.com/%s",
-            },
-            jira: {
-                pattern: [/@jira:(.*)/],
-                urlTemplate: (v: any) => `https://wiswm.atlassian.net/browse/${v}`,
-            },
-        },
+        labels: tagConfig.labels,
+        links: tagConfig.links,
         categories: [
             {
                 name: "foo",

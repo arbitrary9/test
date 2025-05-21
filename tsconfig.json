@@ -1,21 +1,24 @@
 {
   "compilerOptions": {
     "target": "ES2021",
-    "module": "NodeNext",
+    "module": "commonjs",
     "lib": ["ES2021", "DOM"],
     "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "@steps/*": ["tests/step-definitions/*"],
-      "@config/*": ["config/*"]
+      "@config/*": ["config/*"],
+      "@services/*": ["services/*"]
     }
   },
   "include": [
     "tests/**/*.ts",
     "config/**/*.ts",
+    "services/**/*.ts",
+    "scripts/**/*.ts",
     "features/**/*.feature"
   ],
   "exclude": ["dist", "node_modules"]

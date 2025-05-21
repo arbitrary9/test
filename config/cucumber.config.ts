@@ -1,18 +1,32 @@
-import allureConfig from "@config/allure.config";
-import { env } from "@config/env";
 import * as path from "node:path";
+import "@config/init";
+import { env } from "@config/env"
 
-const isCompiled = __dirname.includes("dist");
+const isDist = process.env.NODE_ENV === 'production';
 
-const requirePaths = isCompiled
+const requirePaths = isDist
     ? [path.resolve("dist/tests/step-definitions/**/*.js"), path.resolve("dist/tests/support/**/*.js")]
     : [path.resolve("tests/step-definitions/**/*.ts"), path.resolve("tests/support/**/*.ts")];
+
+const formatters = ["progress-bar"];
+
+if (env.TESTRAIL !== undefined) {
+    formatters.push("json:allure-results/cucumber-results.json");
+}
 
 module.exports = {
     default: {
         require: [...requirePaths],
-        format: ["progress-bar", allureConfig.format[0]],
+        format: formatters,
         paths: ["features/**/*.feature"],
-        tags: env.TAG || "", // pass via ENV
+        tags: env.CUCUMBER?.TAGS || "",
     },
+    // // TestRail specific profile
+    // testrail: {
+    //     require: [...requirePaths],
+    //     format: [...formatters],
+    //     paths: ["features/**/*.feature"],
+    //     tags: env.TAGS || "",
+    //     publishQuiet: true
+    // }
 };
