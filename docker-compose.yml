@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  test-runner:
+    build:
+      context: .
+      dockerfile: packages/test-framework/Dockerfile
+    volumes:
+      - ./:/app
+      - ./packages/test-framework/trace:/app/packages/test-framework/trace
+      - ./packages/test-framework/screenshots:/app/packages/test-framework/screenshots
+      - ./packages/test-framework/allure-results:/app/packages/test-framework/allure-results
+      - pnpm-store:/root/.pnpm-store
+    environment:
+      - NODE_ENV=test
+    env_file:
+      - .env.test
+    command: >
+      sh -c "pnpm install --frozen-lockfile && 
+             pnpm build && 
+             pnpm --filter test-framework test"
+    networks:
+      - test-network
+
+  testrail-integration:
+    build:
+      context: .
+      dockerfile: packages/testrail/Dockerfile
+    volumes:
+      - ./:/app
+      - ./packages/test-framework/allure-results:/app/packages/test-framework/allure-results
+      - pnpm-store:/root/.pnpm-store
+    environment:
+      - NODE_ENV=test
+    env_file:
+      - .env.test
+    depends_on:
+      - test-runner
+    command: >
+      sh -c "pnpm install --frozen-lockfile && 
+             pnpm build && 
+             pnpm --filter testrail report"
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
+
+volumes:
+  pnpm-store:

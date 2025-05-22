@@ -1,0 +1,36 @@
+{
+  "name": "test-framework",
+  "version": "1.0.0",
+  "description": "Playwright and Cucumber test framework",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "cucumber-js --config dist/config/cucumber.config.js",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report",
+    "report": "pnpm allure:generate && pnpm allure:open",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "build:force": "tsc -p tsconfig.build.json --skipLibCheck && tsc-alias -p tsconfig.build.json",
+    "clean": "rimraf dist allure-results allure-report",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"**/*.{ts,js,json,md}\""
+  },
+  "dependencies": {
+    "@cucumber/cucumber": "^11.0.1",
+    "@cucumber/messages": "^27.0.0",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.18",
+    "allure-cucumberjs": "^3.2.2",
+    "allure-js-commons": "^3.2.0",
+    "dotenv": "^16.5.0",
+    "glob": "^10.3.10",
+    "rimraf": "^6.0.1",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.16",
+    "tsconfig-paths": "^4.2.0",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0"
+  }
+}

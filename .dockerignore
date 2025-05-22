@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+**/trace
+**/screenshots
+**/allure-results
+**/allure-report
+.git
+.github
+**/*.log
+.pnpm-store

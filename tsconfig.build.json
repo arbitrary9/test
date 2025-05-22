@@ -1,16 +1,11 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "dist",
     "noEmit": false
   },
-  "include": [
-    "config/**/*",
-    "tests/**/*",
-    "features/**/*",
-    "services/**/*",
-    "scripts/**/*",
-    "cucumber.config.ts"
-  ],
-  "exclude": ["node_modules", "dist"]
+  "files": [],
+  "references": [
+    { "path": "./packages/test-framework/tsconfig.build.json" },
+    { "path": "./packages/testrail/tsconfig.build.json" }
+  ]
 }

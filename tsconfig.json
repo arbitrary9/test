@@ -9,18 +9,12 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "@steps/*": ["tests/step-definitions/*"],
-      "@config/*": ["config/*"],
-      "@services/*": ["services/*"]
-    }
+    "composite": true
   },
-  "include": [
-    "tests/**/*.ts",
-    "config/**/*.ts",
-    "services/**/*.ts",
-    "scripts/**/*.ts",
-    "features/**/*.feature"
-  ],
-  "exclude": ["dist", "node_modules"]
+  "files": [],
+  "exclude": ["node_modules", "dist", "**/node_modules", "**/dist"],
+  "references": [
+    { "path": "./packages/test-framework" },
+    { "path": "./packages/testrail" }
+  ]
 }
