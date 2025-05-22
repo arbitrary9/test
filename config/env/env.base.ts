@@ -20,10 +20,11 @@ export function loadEnvConfig<T extends z.ZodTypeAny>(schema: T, options?: {
 
     const parsed = schema.safeParse(process.env);
 
-    if (!parsed.success) {
+    if (!parsed.success && required) {
         console.error("Invalid environment variables:", parsed.error.format());
         process.exit(1);
     }
 
+    console.log(`Loaded environment variables from ${envFile}`);
     return parsed.data;
 }

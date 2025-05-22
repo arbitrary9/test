@@ -1,11 +1,6 @@
 import * as path from "node:path";
 import { env } from "@config/env"
 
-const isDist = process.env.NODE_ENV === 'production';
-
-const requirePaths = isDist
-    ? [path.resolve("dist/tests/step-definitions/**/*.js"), path.resolve("dist/tests/support/**/*.js")]
-    : [path.resolve("tests/step-definitions/**/*.ts"), path.resolve("tests/support/**/*.ts")];
 
 const formatters = ["progress-bar"];
 
@@ -15,7 +10,10 @@ if (env.TESTRAIL !== undefined) {
 
 module.exports = {
     default: {
-        require: [...requirePaths],
+        require: [
+            path.resolve("dist/tests/step-definitions/**/*.js"),
+            path.resolve("dist/tests/support/**/*.js"),
+        ],
         format: formatters,
         paths: ["features/**/*.feature"],
         tags: env.CUCUMBER?.TAGS || "",

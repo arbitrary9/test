@@ -3,7 +3,8 @@ import { TestRailSchema, CucumberSchema, EnvironmentSchema, Env } from './env/en
 import * as process from "node:process";
 
 function loadEnv(): Env {
-  const env = process.env.ENV;
+  let env = process.env.ENV;
+  if(env === undefined) env = "local";
   return {
     TESTRAIL: loadEnvConfig(TestRailSchema, { envPath: `.env.${env}`, required: false }),
     CUCUMBER: loadEnvConfig(CucumberSchema, { envPath: `.env.${env}`, required: false }),
