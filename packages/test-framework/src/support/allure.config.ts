@@ -1,7 +1,7 @@
 import { Status } from "allure-js-commons";
 import * as os from "os";
 import * as process from "process";
-import { tagConfig } from "../../config/env/config.tags";
+import { tagConfig } from "@config/config.tags";
 
 export default {
   resultsDir: "./allure-results",

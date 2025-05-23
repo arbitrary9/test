@@ -24,12 +24,14 @@
     "url": "https://github.com/arbitrary9/test/issues"
   },
   "homepage": "https://github.com/arbitrary9/test#readme",
+  "packageManager": "pnpm@10.11.0",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.20.0",
-    "@typescript-eslint/parser": "^6.20.0",
-    "eslint": "^8.56.0",
-    "prettier": "^3.0.0",
-    "typescript": "^5.3.3"
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
+    "eslint": "^9.27.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "app-root-path": "^3.1.0"
   },
   "engines": {
     "node": ">=20",

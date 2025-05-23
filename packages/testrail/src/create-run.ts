@@ -1,4 +1,4 @@
-import { API } from '@dlenroc/testrail';
+import API from '@dlenroc/testrail';
 
 // Load environment variables
 const TESTRAIL_HOST = process.env.TESTRAIL_HOST || '';

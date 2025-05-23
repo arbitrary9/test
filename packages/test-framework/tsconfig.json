@@ -3,10 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@api/*": ["src/api*"],
       "@config/*": ["src/config/*"],
+      "@fixtures/*": ["src/fixtures/*"],
+      "@pages/*": ["src/pages/*"],
+      "@support/*": ["src/support/*"],
       "@tests/*": ["src/tests/*"],
-      "@features/*": ["src/features/*"],
-      "@services/*": ["src/services/*"]
+      "@utils/*": ["src/utils/*"],
+      "@validators/*": ["src/validators/*"]
     }
   },
   "include": ["src/**/*"]

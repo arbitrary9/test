@@ -1,4 +1,4 @@
-import { API } from '@dlenroc/testrail';
+import API from '@dlenroc/testrail';
 import { env } from '../env';
 
 // TestRail status IDs

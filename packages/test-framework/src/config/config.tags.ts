@@ -1,4 +1,4 @@
-import { ITagConfiguration } from "./validators/Tag";
+import { ITagConfiguration } from "@validators/Tag";
 
 /**
  * Environment configuration interface

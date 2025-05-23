@@ -1,7 +1,7 @@
 import { Given, When } from "@cucumber/cucumber";
 import * as allure from "allure-js-commons";
-import { TestContext } from "../support/TestContext";
-import { env } from "../../config/env/env";
+import { TestContext } from "@support/TestContext";
+import { env } from "@config/env";
 
 Given(/^I navigate to the website$/, async function(this: TestContext) {
   await allure.step("Navigate to website", async () => {
