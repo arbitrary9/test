@@ -1,4 +1,7 @@
-const { env } = require('./config/env');
+require('ts-node/register');
+require('tsconfig-paths/register');
+
+const { env } = require('./src/config/env');
 
 module.exports = {
   default: {
