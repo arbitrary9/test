@@ -4,6 +4,7 @@ import { Tag } from "@validators/Tag";
 import { tagConfig } from "./config.tags";
 import * as process from "node:process";
 import appRootPath from "app-root-path";
+import * as path from "node:path";
 
 // Initialize dotenv
 dotenv.config();
@@ -25,7 +26,6 @@ const DEFAULT_PATHS = {
   DOWNLOADS_DIR: "./test-results/downloads/",
 };
 
-// Define schema for test framework environment
 export const TestFrameworkSchema = z.object({
   WEB_SITE_URL: z.string().url(),
   CHANNEL: z.enum(["chrome", "firefox", "webkit"]).default("chrome"),
@@ -50,26 +50,32 @@ export const TestFrameworkSchema = z.object({
 // Type for test framework environment
 export type TestFrameworkEnv = z.infer<typeof TestFrameworkSchema>;
 
+function loadEnvConfig<T extends z.ZodTypeAny>(schema: T, options?: {
+  envPath?: string;
+  required?: boolean;
+}): z.infer<T> {
+  const envFile = options?.envPath || '.env';
+  const required = options?.required ?? true;
 
-export const env: TestFrameworkEnv = TestFrameworkSchema.parse({
-  WEB_SITE_URL: process.env.WEB_SITE_URL,
-  CHANNEL: process.env.CHANNEL,
-  HEADLESS: process.env.HEADLESS,
-  SLOW_MO: process.env.SLOW_MO,
-  RECORD_VIDEO: process.env.RECORD_VIDEO,
+  const result = dotenv.config({
+    path: path.resolve(process.cwd(), envFile),
+  });
 
-  SCREENSHOT_ON_FAILURE: process.env.SCREENSHOT_ON_FAILURE,
-  TRACE_ON_FAILURE: process.env.TRACE_ON_FAILURE,
+  if (result.error && required) {
+    console.error(`Failed to load environment file: ${envFile}`);
+    process.exit(1);
+  }
 
-  DEFAULT_TIMEOUT: process.env.DEFAULT_TIMEOUT,
-  RETRY_COUNT: process.env.RETRY_COUNT,
+  const parsed = schema.safeParse(process.env);
 
-  SCREENSHOTS_DIR: process.env.SCREENSHOTS_DIR,
-  VIDEOS_DIR: process.env.VIDEOS_DIR,
-  TRACES_DIR: process.env.TRACES_DIR,
-  ALLURE_RESULTS_DIR: process.env.ALLURE_RESULTS_DIR,
-  DOWNLOADS_DIR: process.env.DOWNLOADS_DIR,
-  TAGS: process.env.TAGS
-});
+  if (!parsed.success && required) {
+    console.error("Invalid environment variables:", parsed.error.format());
+    process.exit(1);
+  }
+
+  console.log(`Loaded environment variables from ${envFile}`);
+  return parsed.data;
+}
+export const env = loadEnvConfig(TestFrameworkSchema);
 
 export { tagConfig };

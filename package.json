@@ -4,9 +4,9 @@
   "description": "Test automation monorepo with TestRail integration",
   "private": true,
   "scripts": {
-    "test": "pnpm --filter test-framework test",
-    "report": "pnpm --filter test-framework report",
-    "testrail:report": "pnpm --filter testrail report",
+    "test": "pnpm --silent --filter test-framework test",
+    "report": "pnpm --silent --filter test-framework report",
+    "testrail:report": "pnpm --silent --filter testrail report",
     "build": "pnpm -r build",
     "clean": "pnpm -r clean",
     "lint": "pnpm -r lint",
